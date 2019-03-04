@@ -2,53 +2,69 @@ package pages;
 
 import base.AbstractTest;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CheckoutPage extends AbstractPage {
-    private WebDriverWait wait;
+
+    // Web elements
     @FindBy(xpath = "//i[@class='icon-plus']")
     private WebElement increaseNumberOfProducts;
+
     @FindBy(xpath = "//td[@class='cart_total']/span[@class='price']")
     private WebElement totalPriceForOneItem;
+
     @FindBy(xpath = "//tr[@class='cart_total_price']/td[@id='total_product']")
     private WebElement totalPriceForAllProducts;
+
     @FindBy(xpath = "//i[@class='icon-trash']")
     private WebElement trashIcon;
+
     @FindBy(xpath = "//p[@class='alert alert-warning']")
     private WebElement cartIsEmptyMessage;
 
-
+    /**
+     * Constructor
+     *
+     * @param testClass
+     */
     public CheckoutPage(AbstractTest testClass) {
         super(testClass);
-
     }
 
-    int amountOfProducts=0;
+    /**
+     * Verify total price depending on the amount of the added product to the cart
+     *
+     * @param amountOfProducts
+     */
     public void verifyTotalPriceDependingOnTheAmountOfProductInTheCart(int amountOfProducts) {
-        double priceForOneProduct = Double.parseDouble(totalPriceForOneItem.getText().replaceAll("\\$",""));
-        System.out.println(priceForOneProduct);
+        double priceForOneProduct =
+                Double.parseDouble(totalPriceForOneItem.getText().replaceAll("\\$", ""));
         for (int i = 0; i < amountOfProducts; i++) {
             increaseNumberOfProducts.click();
-
         }
-        //Нет других идей, кнопка добавления количества товаров слишком быстро срабатывает, поэтому Thread.sleep
+        // Нет других идей. Драйвер молниеносно кликает на счетчик товаров, и пока тотал цена в поле
+        // поменяется прога уже бежит дальше...не знаю какой вейт может справиться с этим?
         try {
-            Thread.sleep(2000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Assert.assertEquals(Double.parseDouble(totalPriceForAllProducts.getText().replaceAll("\\$","")),priceForOneProduct*(amountOfProducts+1), 0.0);
-
+        Assert.assertEquals(
+                Double.parseDouble(totalPriceForAllProducts.getText().replaceAll("\\$", "")),
+                priceForOneProduct * (amountOfProducts + 1),
+                0.0);
     }
-    public void removeFromCart(){
+
+    /** Remove from cart */
+    public void removeFromCart() {
+        testClass.waitElementToBeClickable(trashIcon);
         trashIcon.click();
     }
-    public void verifyCartIsEmpty(){
-        testClass.waitElementToBeVisible(cartIsEmptyMessage);
-    Assert.assertEquals("Your shopping cart is empty.", cartIsEmptyMessage.getText());
-    }
 
+    /** Verify that cart is empty */
+    public void verifyCartIsEmpty() {
+        testClass.waitElementToBeVisible(cartIsEmptyMessage);
+        Assert.assertEquals("Your shopping cart is empty.", cartIsEmptyMessage.getText());
+    }
 }

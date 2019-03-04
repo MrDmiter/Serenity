@@ -1,5 +1,7 @@
 package base;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Rule;
@@ -12,23 +14,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.HomePage;
 import utils.YamlParser;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 public class AbstractTest {
 
-    //Instances of the Wwebdriver and Webdriver Wait
+    // Instances of the Webdriver and WebdriverWait
     private WebDriver driver;
     private WebDriverWait wait;
+
     // Logger
     private Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
     // Rule
-    @Rule
-    public RunTestRule runTestRule = new RunTestRule(this);
-    /**
-     * Constructor
-     */
+    @Rule public RunTestRule runTestRule = new RunTestRule(this);
+
+    /** Constructor */
     public AbstractTest() {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
@@ -40,6 +38,7 @@ public class AbstractTest {
 
     /**
      * Get driver
+     *
      * @return driver
      */
     public WebDriver getDriver() {
@@ -63,7 +62,6 @@ public class AbstractTest {
     public void waitElementToBeVisible(WebElement webElement) {
         wait.until(ExpectedConditions.visibilityOf(webElement));
     }
-
 
     /**
      * Open site
@@ -102,9 +100,7 @@ public class AbstractTest {
         return new SimpleDateFormat("YYYY-MM-dd_HH-mm-ss").format(Calendar.getInstance().getTime());
     }
 
-    /**
-     * Close site
-     */
+    /** Close site */
     public void closeSite() {
         driver.quit();
     }

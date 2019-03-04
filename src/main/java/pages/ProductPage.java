@@ -6,7 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class ProductPage extends AbstractPage {
-    //Web element
+
+    // Web elements
     @FindBy(xpath = "//div[@class='breadcrumb clearfix']")
     private WebElement breadCrumbs;
 
@@ -16,20 +17,35 @@ public class ProductPage extends AbstractPage {
     @FindBy(xpath = "//a[@title='Proceed to checkout']")
     private WebElement proceedToCheckout;
 
+    /**
+     * Constructor
+     *
+     * @param testClass
+     */
     public ProductPage(AbstractTest testClass) {
         super(testClass);
     }
 
-    public void verifyBreadCrumbs() {
-        String[] droppedBreadCrumbs = breadCrumbs.getText().split(">");
-        Assert.assertEquals("Faded Short Sleeve T-shirts", droppedBreadCrumbs[droppedBreadCrumbs.length - 1]);
+    /**
+     * Verify breadcrumbs
+     *
+     * @param expectedBreadCrumbs
+     */
+    public void verifyBreadCrumbs(String expectedBreadCrumbs) {
+        testClass.waitElementToBeVisible(breadCrumbs);
+        Assert.assertEquals(expectedBreadCrumbs, breadCrumbs.getText());
     }
-    public CheckoutPage addToCartAndProceedToCheckout(){
+
+    /**
+     * Add product to the cart and proceed to checkout
+     *
+     * @return entity of the CheckoutPage
+     */
+    public CheckoutPage addToCartAndProceedToCheckout() {
+        testClass.waitElementToBeClickable(addToCart);
         addToCart.click();
         testClass.waitElementToBeClickable(proceedToCheckout);
         proceedToCheckout.click();
         return new CheckoutPage(testClass);
     }
-
-
 }

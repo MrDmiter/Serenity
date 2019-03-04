@@ -2,7 +2,6 @@ package pages;
 
 import base.AbstractTest;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -10,21 +9,16 @@ public abstract class AbstractPage {
 
     protected AbstractTest baseTest;
 
-    //Web Elements
-
+    // Web Elements
     @FindBy(xpath = "//div/a[@class='login']")
     private WebElement stickySignInBtn;
 
-    @FindBy(xpath = "//div[@id='block_top_menu']/ul/li/a[@title='Dresses']")
-    private WebElement dressesTab;
-
-    @FindBy(xpath = "//li[@class='sfHover']//a[@title='Summer Dresses'][contains(text(),'Summer Dresses')]")
-    private WebElement summerDressesSubTab;
-
-    @FindBy(xpath = "//*[@id='block_top_menu']/ul/li[3]/a")
+    @FindBy(
+            xpath =
+                    "//ul[@class='sf-menu clearfix menu-content sf-js-enabled sf-arrows']/li/a[@title='T-shirts']")
     private WebElement tShirts;
 
-    //Instance of BaseTest
+    // Instance of BaseTest
     protected AbstractTest testClass;
 
     /**
@@ -43,18 +37,19 @@ public abstract class AbstractPage {
      * @return
      */
     public SignInPage signInClick() {
+        testClass.waitElementToBeClickable(stickySignInBtn);
         stickySignInBtn.click();
         return new SignInPage(testClass);
     }
 
-
-
-    public TShirtsPage clickOnTShirts(){
+    /**
+     * Click on t-shirts tab
+     *
+     * @return
+     */
+    public TShirtsPage clickOnTShirts() {
+        testClass.waitElementToBeClickable(tShirts);
         tShirts.click();
         return new TShirtsPage(testClass);
-    }
-
-    public void verifyBreadCrumbs(){
-
     }
 }

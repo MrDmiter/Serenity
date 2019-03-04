@@ -5,9 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.YamlParser;
 
-public class SignInPage extends AbstractPage{
+public class SignInPage extends AbstractPage {
 
-    //Web Elements
+    // Web Elements
     @FindBy(xpath = "//input[@id='email']")
     private WebElement emailTextField;
 
@@ -26,18 +26,17 @@ public class SignInPage extends AbstractPage{
         super(testClass);
     }
 
-
     /**
      * Sign in to the account
      *
      * @return
      */
     public MyAccountPage signIn() {
-        //Enter email
+        // Enter email
         emailTextField.sendKeys(YamlParser.getYamlFile().getEmail());
-        //Enter password
+        // Enter password
         passTextField.sendKeys(YamlParser.getYamlFile().getPassword());
-        //Click on the sign in button
+        // Click on the sign in button
         signInBtn.click();
         return new MyAccountPage(testClass);
     }
