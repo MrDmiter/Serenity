@@ -33,10 +33,13 @@ public class SignInPage extends AbstractPage {
      */
     public MyAccountPage signIn() {
         // Enter email
+        testClass.waitElementToBeClickable(emailTextField);
         emailTextField.sendKeys(YamlParser.getYamlFile().getEmail());
         // Enter password
+        testClass.waitElementToBeClickable(passTextField);
         passTextField.sendKeys(YamlParser.getYamlFile().getPassword());
         // Click on the sign in button
+        testClass.waitElementToBeClickable(signInBtn);
         signInBtn.click();
         return new MyAccountPage(testClass);
     }

@@ -32,6 +32,10 @@ public class CheckoutPage extends AbstractPage {
         super(testClass);
     }
 
+    //Locator which represent window with quantity of the products in the cart
+    private static final String PRODUCT_QUANTITY =
+            "//td[@class='cart_quantity text-center']/input[@type='text']";
+
     /**
      * Verify total price depending on the amount of the added product to the cart
      *
@@ -43,26 +47,25 @@ public class CheckoutPage extends AbstractPage {
         for (int i = 0; i < amountOfProducts; i++) {
             increaseNumberOfProducts.click();
         }
-        // Нет других идей. Драйвер молниеносно кликает на счетчик товаров, и пока тотал цена в поле
-        // поменяется прога уже бежит дальше...не знаю какой вейт может справиться с этим?
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        testClass.waitTillTextToBePresentInElementValue(PRODUCT_QUANTITY, 4);
         Assert.assertEquals(
                 Double.parseDouble(totalPriceForAllProducts.getText().replaceAll("\\$", "")),
                 priceForOneProduct * (amountOfProducts + 1),
                 0.0);
     }
 
-    /** Remove from cart */
+
+    /**
+     * Remove from cart
+     */
     public void removeFromCart() {
         testClass.waitElementToBeClickable(trashIcon);
         trashIcon.click();
     }
 
-    /** Verify that cart is empty */
+    /**
+     * Verify that cart is empty
+     */
     public void verifyCartIsEmpty() {
         testClass.waitElementToBeVisible(cartIsEmptyMessage);
         Assert.assertEquals("Your shopping cart is empty.", cartIsEmptyMessage.getText());

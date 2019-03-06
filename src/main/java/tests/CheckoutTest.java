@@ -27,7 +27,7 @@ public class CheckoutTest extends AbstractTest {
         log("Entered t-shirts category");
 
         //Enter the product page
-        ProductPage productPage = tShirtsPage.clickOnProduct();
+        ProductPage productPage = tShirtsPage.clickOnProduct("Faded Short Sleeve T-shirts");
         log("Opened product");
 
         //Check whether we on the right page comparing breadcrumbs

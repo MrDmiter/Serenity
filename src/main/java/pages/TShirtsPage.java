@@ -1,6 +1,7 @@
 package pages;
 
 import base.AbstractTest;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -14,6 +15,7 @@ public class TShirtsPage extends AbstractPage {
     @FindBy(xpath = "//div[@class='product-container']")
     private WebElement productContainer;
 
+
     /**
      * Constructor
      *
@@ -23,21 +25,15 @@ public class TShirtsPage extends AbstractPage {
         super(testClass);
     }
 
-    /** Hover over product to make needed buttons visible */
-    public void hoverOverProduct() {
-        Actions builder = new Actions(testClass.getDriver());
-        builder.moveToElement(productContainer).build().perform();
-    }
+    private String PRODUCT_DETAILS_XPATH = "//h5[@itemprop='name']/a[contains(., '%s')]";
 
     /**
-     * Open the product page
-     *
-     * @return ProductPage entity
+     * Find product by the its name and click on it
+     * @param nameOfProduct
+     * @return entity of the product page
      */
-    public ProductPage clickOnProduct() {
-        hoverOverProduct();
-        testClass.waitElementToBeClickable(product);
-        product.click();
+    public ProductPage clickOnProduct(String nameOfProduct) {
+        testClass.getDriver().findElement(By.xpath(String.format(PRODUCT_DETAILS_XPATH, nameOfProduct))).click();
         return new ProductPage(testClass);
     }
 }
