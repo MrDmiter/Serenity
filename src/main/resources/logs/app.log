@@ -120,3 +120,12 @@ Session ID: a581edca08443d9c2c0e1377d4b925a6
 2019-11-06 22:11:13.086 [main] INFO   - Added to cart
 2019-11-06 22:11:18.161 [main] INFO   - Item successfully deleted
 2019-11-06 22:11:18.927 [main] INFO   - Site is closed
+2019-58-15 23:58:45.021 [main] INFO   - Opened Site
+2019-58-15 23:58:47.174 [main] INFO   - Entered the signIn page
+2019-58-15 23:58:49.933 [main] INFO   - Signed in into account
+2019-58-15 23:58:52.256 [main] INFO   - Entered t-shirts category
+2019-58-15 23:58:54.331 [main] INFO   - Opened product
+2019-58-15 23:58:54.450 [main] INFO   - Bread crumbs are verified
+2019-58-15 23:58:58.387 [main] INFO   - Added to cart
+2019-59-15 23:59:03.660 [main] INFO   - Item successfully deleted
+2019-59-15 23:59:04.484 [main] INFO   - Site is closed
