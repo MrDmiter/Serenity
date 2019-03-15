@@ -7,8 +7,9 @@ import org.openqa.selenium.support.PageFactory;
 
 public abstract class AbstractPage {
 
-    protected AbstractTest baseTest;
-
+    // Instance of BaseTest
+    protected AbstractTest testClass;
+    
     // Web Elements
     @FindBy(xpath = "//div/a[@class='login']")
     private WebElement stickySignInBtn;
@@ -18,8 +19,6 @@ public abstract class AbstractPage {
                     "//ul[@class='sf-menu clearfix menu-content sf-js-enabled sf-arrows']/li/a[@title='T-shirts']")
     private WebElement tShirts;
 
-    // Instance of BaseTest
-    protected AbstractTest testClass;
 
     /**
      * Constructor
