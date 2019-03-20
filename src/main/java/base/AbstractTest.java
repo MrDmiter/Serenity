@@ -21,6 +21,7 @@ public class AbstractTest {
     private WebDriver driver;
     private WebDriverWait wait;
 
+
     // Logger
     private Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
@@ -97,6 +98,7 @@ public class AbstractTest {
                 textToBePresentInElementValue(
                         By.xpath(locator), String.valueOf(expectedValue)));
     }
+
 
 
     /**

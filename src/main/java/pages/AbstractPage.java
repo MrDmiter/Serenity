@@ -2,6 +2,7 @@ package pages;
 
 import base.AbstractTest;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -41,14 +42,6 @@ public abstract class AbstractPage {
         return new SignInPage(testClass);
     }
 
-    /**
-     * Click on t-shirts tab
-     *
-     * @return
-     */
-    public TShirtsPage clickOnTShirts() {
-        testClass.waitElementToBeClickable(tShirts);
-        tShirts.click();
-        return new TShirtsPage(testClass);
-    }
+
+
 }
