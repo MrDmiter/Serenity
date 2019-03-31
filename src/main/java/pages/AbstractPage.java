@@ -1,47 +1,66 @@
 package pages;
 
-import base.AbstractTest;
+import net.serenitybdd.core.pages.PageObject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public abstract class AbstractPage {
+public abstract class AbstractPage extends PageObject {
 
-    // Instance of BaseTest
-    protected AbstractTest testClass;
-    
     // Web Elements
-    @FindBy(xpath = "//div/a[@class='login']")
-    private WebElement stickySignInBtn;
 
+    private WebDriverWait wait;
     @FindBy(
             xpath =
                     "//ul[@class='sf-menu clearfix menu-content sf-js-enabled sf-arrows']/li/a[@title='T-shirts']")
     private WebElement tShirts;
 
-
     /**
      * Constructor
      *
-     * @param testClass
+     * @param driver
      */
-    public AbstractPage(AbstractTest testClass) {
-        this.testClass = testClass;
-        PageFactory.initElements(testClass.getDriver(), this);
+    public AbstractPage(WebDriver driver) {
+        super(driver);
+        wait = new WebDriverWait(driver, 10);
     }
 
     /**
-     * Click on the sign in button on the home page
+     * Open site
      *
      * @return
      */
-    public SignInPage signInClick() {
-        testClass.waitElementToBeClickable(stickySignInBtn);
-        stickySignInBtn.click();
-        return new SignInPage(testClass);
+    public void openSite() {
+        getDriver().manage().window().maximize();
+        getDriver().get("http://automationpractice.com/");
     }
 
 
+    /**
+     * Wait element to be clickable
+     *
+     * @param webElement
+     */
+    public void waitElementToBeClickable(WebElement webElement) {
+        wait.until(ExpectedConditions.elementToBeClickable(webElement));
+    }
+
+    /**
+     * Wait element to be visible
+     *
+     * @param webElement
+     */
+    public void waitElementToBeVisible(WebElement webElement) {
+        wait.until(ExpectedConditions.visibilityOf(webElement));
+    }
+
+    public void waitTillTextToBePresentInElementValue(String locator, int expectedValue) {
+        wait.until(ExpectedConditions.
+                textToBePresentInElementValue(
+                        By.xpath(locator), String.valueOf(expectedValue)));
+    }
 
 }

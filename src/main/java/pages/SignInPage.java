@@ -1,9 +1,8 @@
 package pages;
 
-import base.AbstractTest;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import utils.YamlParser;
 
 public class SignInPage extends AbstractPage {
 
@@ -20,12 +19,11 @@ public class SignInPage extends AbstractPage {
     /**
      * Constructor
      *
-     * @param testClass
+     * @param driver
      */
-    public SignInPage(AbstractTest testClass) {
-        super(testClass);
+    public SignInPage(WebDriver driver) {
+        super(driver);
     }
-
     /**
      * Sign in to the account
      *
@@ -33,12 +31,13 @@ public class SignInPage extends AbstractPage {
      */
     public MyAccountPage signIn() {
         // Enter email
-        testClass.waitElementToBeClickable(emailTextField);
-        emailTextField.sendKeys(YamlParser.getYamlFile().getEmail());
+        waitElementToBeClickable(emailTextField);
+        emailTextField.sendKeys("gavuyabavu@digitalmail.info");
         // Enter password
-        passTextField.sendKeys(YamlParser.getYamlFile().getPassword());
+        passTextField.sendKeys("12345");
         // Click on the sign in button
         signInBtn.click();
-        return new MyAccountPage(testClass);
+        return new MyAccountPage(getDriver());
     }
+
 }

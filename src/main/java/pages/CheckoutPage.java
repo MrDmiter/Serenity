@@ -1,7 +1,7 @@
 package pages;
 
-import base.AbstractTest;
 import org.junit.Assert;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -20,16 +20,16 @@ public class CheckoutPage extends AbstractPage {
     @FindBy(xpath = "//i[@class='icon-trash']")
     private WebElement trashIcon;
 
-    @FindBy(xpath = "//p[@class='alert alert-warning']")
+    @FindBy(className = "alert alert-warning")
     private WebElement cartIsEmptyMessage;
 
     /**
      * Constructor
      *
-     * @param testClass
+     * @param driver
      */
-    public CheckoutPage(AbstractTest testClass) {
-        super(testClass);
+    public CheckoutPage(WebDriver driver) {
+        super(driver);
     }
 
     //Locator which represent window with quantity of the products in the cart
@@ -47,7 +47,7 @@ public class CheckoutPage extends AbstractPage {
         for (int i = 0; i < amountOfProducts; i++) {
             increaseNumberOfProducts.click();
         }
-        testClass.waitTillTextToBePresentInElementValue(PRODUCT_QUANTITY, 4);
+        waitTillTextToBePresentInElementValue(PRODUCT_QUANTITY, 3);
         Assert.assertEquals(
                 Double.parseDouble(totalPriceForAllProducts.getText().replaceAll("\\$", "")),
                 priceForOneProduct * (amountOfProducts + 1),
@@ -59,7 +59,7 @@ public class CheckoutPage extends AbstractPage {
      * Remove from cart
      */
     public void removeFromCart() {
-        testClass.waitElementToBeClickable(trashIcon);
+        waitElementToBeClickable(trashIcon);
         trashIcon.click();
     }
 
@@ -67,7 +67,7 @@ public class CheckoutPage extends AbstractPage {
      * Verify that cart is empty
      */
     public void verifyCartIsEmpty() {
-        testClass.waitElementToBeVisible(cartIsEmptyMessage);
+        waitElementToBeVisible(cartIsEmptyMessage);
         Assert.assertEquals("Your shopping cart is empty.", cartIsEmptyMessage.getText());
     }
 }

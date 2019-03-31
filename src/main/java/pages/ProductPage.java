@@ -1,8 +1,8 @@
 package pages;
 
-import base.AbstractTest;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -19,8 +19,8 @@ public class ProductPage extends AbstractPage {
     @FindBy(xpath = "//span[contains(.,'Add to cart')]")
     private WebElement cart;
 
-    @FindBy(xpath = "//span[contains(.,'Continue shopping')]")
-    private WebElement continueShoppingbtn;
+    @FindBy(xpath = "//a[@title='Proceed to checkout']")
+    private WebElement toCheckout;
 
     @FindBy(xpath = "//a[@title='View my shopping cart']")
     private WebElement viewCart;
@@ -37,10 +37,10 @@ public class ProductPage extends AbstractPage {
     /**
      * Constructor
      *
-     * @param testClass
+     * @param driver
      */
-    public ProductPage(AbstractTest testClass) {
-        super(testClass);
+    public ProductPage(WebDriver driver) {
+        super(driver);
     }
 
 
@@ -52,39 +52,39 @@ public class ProductPage extends AbstractPage {
         pinkColor.click();
     }
     public void selectSizeInDropdown(String size){
-        Select dropdown = new Select(testClass.getDriver().findElement(By.xpath("//select[@name='group_1']")));
+        Select dropdown = new Select(getDriver().findElement(By.xpath("//select[@name='group_1']")));
         dropdown.selectByVisibleText(size);
     }
     public void addToCartAndProceedToCheckout(){
         cart.click();
-        testClass.waitElementToBeVisible(continueShoppingbtn);
-        continueShoppingbtn.click();
+        waitElementToBeVisible(toCheckout);
+        toCheckout.click();
     }
 
     public void hoverOverShopCartAndVerifyColorAndSize(){
-        Actions action = new Actions(testClass.getDriver());
+        Actions action = new Actions(getDriver());
         action.moveToElement(viewCart).build().perform();
-        testClass.waitElementToBeVisible(orderAtributes);
+        waitElementToBeVisible(orderAtributes);
         Assert.assertEquals("Pink, L",orderAtributes.getText());
     }
 
     public void removeProductFromCart(){
-        testClass.waitElementToBeClickable(removeProductFromCartbtn);
+        waitElementToBeClickable(removeProductFromCartbtn);
         removeProductFromCartbtn.click();
     }
 
     public void verifyCartIsEmpty(){
         Assert.assertEquals("(empty)",cartIsEmpty.getText());
-        String actualWindow = testClass.getDriver().getWindowHandle();
-        Set<String> windowHandles = testClass.getDriver().getWindowHandles();
+        String actualWindow = getDriver().getWindowHandle();
+        Set<String> windowHandles = getDriver().getWindowHandles();
         String windowToSwitchTo = null;
         for (String windowHandle : windowHandles) {
             if(windowHandle!=actualWindow){
                 windowToSwitchTo=windowHandle;
             }
         }
-        testClass.getDriver().switchTo().window(windowToSwitchTo);
-        testClass.getDriver().close();
+        getDriver().switchTo().window(windowToSwitchTo);
+        getDriver().close();
     }
 
 

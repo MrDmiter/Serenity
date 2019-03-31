@@ -1,8 +1,8 @@
 package pages;
 
-import base.AbstractTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 
 import java.util.Set;
 
@@ -12,8 +12,8 @@ public class EveningDressesPage extends AbstractPage {
 
 
     //Constructor
-    public EveningDressesPage(AbstractTest testClass) {
-        super(testClass);
+    public EveningDressesPage(WebDriver driver) {
+        super(driver);
     }
 
     /**
@@ -22,21 +22,7 @@ public class EveningDressesPage extends AbstractPage {
      * @return entity of the product page
      */
     public ProductPage clickOnProduct(String nameOfProduct) {
-        testClass.getDriver().findElement(By.xpath(String.format(PRODUCT_DETAILS_XPATH, nameOfProduct)))
-                .sendKeys(Keys.chord(Keys.CONTROL, Keys.RETURN));
-        String initialWindow = testClass.getDriver().getWindowHandle();
-        Set<String> windows = testClass.getDriver().getWindowHandles();
-        String newWindow = null;
-        for (String window : windows) {
-            if (!window.equals(initialWindow)) {
-                newWindow = window;
-            }
-        }
-        testClass.getDriver().switchTo().window(newWindow);
-
-        return new ProductPage(testClass);
-
-
-
+        getDriver().findElement(By.xpath(String.format(PRODUCT_DETAILS_XPATH, nameOfProduct))).click();
+        return new ProductPage(getDriver());
     }
 }

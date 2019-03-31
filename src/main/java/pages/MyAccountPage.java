@@ -1,6 +1,6 @@
 package pages;
 
-import base.AbstractTest;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -15,19 +15,19 @@ public class MyAccountPage extends AbstractPage {
     /**
      * Constructor
      *
-     * @param testClass
+     * @param driver
      */
-    public MyAccountPage(AbstractTest testClass) {
-        super(testClass);
+    public MyAccountPage(WebDriver driver) {
+        super(driver);
     }
 
     /**
      * Hover over Women tab
      */
     public void focusOnElement(){
-        Actions builder = new Actions(testClass.getDriver());
+        Actions builder = new Actions(getDriver());
         builder.moveToElement(dresses).build().perform();
-        testClass.waitElementToBeVisible(eveningDresses);
+        waitElementToBeVisible(eveningDresses);
     }
 
     /**
@@ -35,6 +35,6 @@ public class MyAccountPage extends AbstractPage {
      */
     public EveningDressesPage clickOnEveningDresses(){
         eveningDresses.click();
-        return new EveningDressesPage(testClass);
+        return new EveningDressesPage(getDriver());
     }
 }
