@@ -55,12 +55,19 @@ public class ProductPage extends AbstractPage {
         Select dropdown = new Select(getDriver().findElement(By.xpath("//select[@name='group_1']")));
         dropdown.selectByVisibleText(size);
     }
+
+    /**
+     * Add product to cart and proceed to checkout
+     */
     public void addToCartAndProceedToCheckout(){
         cart.click();
         waitElementToBeVisible(toCheckout);
         toCheckout.click();
     }
 
+    /**
+     * Hover over shop cart and verify color and size
+     */
     public void hoverOverShopCartAndVerifyColorAndSize(){
         Actions action = new Actions(getDriver());
         action.moveToElement(viewCart).build().perform();
@@ -68,11 +75,17 @@ public class ProductPage extends AbstractPage {
         Assert.assertEquals("Pink, L",orderAtributes.getText());
     }
 
+    /**
+     * Remove product from cart
+     */
     public void removeProductFromCart(){
         waitElementToBeClickable(removeProductFromCartbtn);
         removeProductFromCartbtn.click();
     }
 
+    /**
+     * Verify cart is empty
+     */
     public void verifyCartIsEmpty(){
         Assert.assertEquals("(empty)",cartIsEmpty.getText());
         String actualWindow = getDriver().getWindowHandle();

@@ -24,6 +24,7 @@ public class SignInPage extends AbstractPage {
     public SignInPage(WebDriver driver) {
         super(driver);
     }
+
     /**
      * Sign in to the account
      *

@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends AbstractPage {
 
+
+    //Web elements
     @FindBy(xpath = "//div/a[@class='login']")
     private WebElement stickySignInBtn;
     /**

@@ -48,10 +48,10 @@ public class SerenityCheckoutTest {
 
 
     /**
-     * Open site and click the Python link
+     * Open site, add product to the cart, increase amount of the products in the cart, check price and empty cart
      */
     @Test
-    public void testOpenSiteAndClickTheLinkTest() {
+    public void testSerenityCheckoutTest() {
         homePageSteps.userOpensSiteAndGetsHomePage();
         homePageSteps.userProceedToSignInPage();
         signInPageSteps.userProceedToTheMyAccountPage();

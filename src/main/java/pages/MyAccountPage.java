@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 
 public class MyAccountPage extends AbstractPage {
 
+
+    //Web elements
     @FindBy(xpath = "//a[@title='Women']")
     private WebElement dresses;
     @FindBy(xpath = "//ul[@class='submenu-container clearfix first-in-line-xs']/li/ul/li/a[@title='Evening Dresses']")
